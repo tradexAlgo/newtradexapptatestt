@@ -55,7 +55,9 @@ react {
  * Set this to true to Run Proguard on Release builds to minify the Java bytecode.
  */
 def enableProguardInReleaseBuilds = false
-
+// project.ext.react = [
+//     enableHermes: true,  // <- this should be set to true if you want to use Hermes
+// ]
 /**
  * The preferred build flavor of JavaScriptCore (JSC)
  *
@@ -69,14 +71,15 @@ def enableProguardInReleaseBuilds = false
  */
 def jscFlavor = 'org.webkit:android-jsc:+'
 
+
 android {
     ndkVersion rootProject.ext.ndkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.tradex"
+    namespace "com.tradesprooi.tradex"
     defaultConfig {
-        applicationId "com.tradex"
+        applicationId "com.tradesprooi.tradex"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
