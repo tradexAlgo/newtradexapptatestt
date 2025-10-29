@@ -1,0 +1,36 @@
+export async function sendSms(phoneNumber, otpValue) {
+  try {
+    if (!API_KEY) {
+      throw new Error("Missing TWO_FACTOR_API_KEY in environment variables");
+    }
+
+    if (!phoneNumber || !otpValue) {
+      throw new Error("Missing phoneNumber or otpValue");
+    }
+
+    console.log("📩 Sending SMS...");
+    console.log("➡️ Phone:", phoneNumber);
+    console.log("➡️ OTP:", otpValue);
+
+    // 👇 ensure this is SMS not VOICE
+    const url = `https://2factor.in/API/V1/${API_KEY}/SMS/${phoneNumber}/${otpValue}/OTP Validation Template`;
+
+    console.log("➡️ Request URL:", url);
+
+    const response = await axios.get(url);
+
+    console.log("✅ SMS API Response:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("❌ Error sending SMS");
+
+    if (error.response) {
+      console.error("➡️ Status:", error.response.status);
+      console.error("➡️ Data:", error.response.data);
+    } else {
+      console.error("➡️ Message:", error.message);
+    }
+
+    throw error;
+  }
+}
